@@ -38,6 +38,21 @@ zstyle ':omz:load' omodule 'environment' 'terminal' 'editor' 'completion' \
 # Auto set to 'off' on dumb terminals.
 zstyle ':omz:module:prompt' theme 'sorin'
 
+# Auto update to the latest version.
+zstyle ':omz:module:update' auto-update 'no'
+
+# Auto commit updated files without review.
+zstyle ':omz:module:update' auto-commit 'no'
+
+# Set the update frequency in days.
+zstyle ':omz:module:update' check-frequency '7'
+
+# Set the name of the update remote.
+zstyle ':omz:module:update:remote' name 'origin'
+
+# Set the branch of the update remote.
+zstyle ':omz:module:update:remote' branch 'master'
+
 # This will make you shout: OH MY ZSHELL!
 source "$OMZ/init.zsh"
 

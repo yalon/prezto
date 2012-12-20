@@ -60,4 +60,5 @@ bindkey ';5D' emacs-backward-word
 bindkey ';5C' emacs-forward-word
 
 alias renice_vbox='pgrep VBoxHeadless | xargs sudo renice +19'
+alias nm-applet-restart='pkill nm-applet ; nohup nm-applet > /dev/null 2>&1 &'
 

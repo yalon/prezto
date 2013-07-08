@@ -6,7 +6,6 @@
 #
 
 # Set the path to Oh My Zsh.
-export OMZ="$HOME/.oh-my-zsh"
 
 #
 # Paths

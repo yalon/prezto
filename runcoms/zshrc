@@ -11,4 +11,16 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+RPROMPT="\$(rvm-prompt v g)"
 
+if [[ -f `which virtualenvwrapper.sh` ]]; then
+  export WORKON_HOME=$HOME/pythonenv
+  source `which virtualenvwrapper.sh`
+fi
+
+jish () {
+    eval $(jish=1 POSIXLY_CORRECT= /home/tal/pythonenv/infi/bin/jissue "$@")
+}
+
+export PATH="${PATH}:${HOME}/pythonenv/infi/bin"
+export MANPATH="${MANPATH}:${HOME}/man"

@@ -6,6 +6,10 @@
 #   Sebastian Wiesner <lunaryorn@googlemail.com>
 #
 
+# We want to prevent duplicate paths, but we store the behavior before we change it
+$(typeset +U | grep -iq "^path$") || path_not_unique=1
+typeset -gU path PATH
+
 # Load manually installed pyenv into the shell session.
 if [[ -s "$HOME/.pyenv/bin/pyenv" ]]; then
   path=("$HOME/.pyenv/bin" $path)
@@ -103,6 +107,7 @@ if (( $+VIRTUALENVWRAPPER_VIRTUALENV || $+commands[virtualenv] )) && \
     # Fallback to 'virtualenvwrapper' without 'pyenv' wrapper in '$path'
     # and other known locations on a Debian based system.
     virtenv_sources=(
+      $HOME/.local/bin/virtualenvwrapper.sh(OnN)
       ${(@Ov)commands[(I)virtualenvwrapper(_lazy|).sh]}
       /usr/share/virtualenvwrapper/virtualenvwrapper(_lazy|).sh(OnN)
     )
@@ -135,3 +140,8 @@ fi
 alias py='python'
 alias py2='python2'
 alias py3='python3'
+
+# if we're in a virtualenv, make sure it's first in the path and not after pyenv
+(( ${+VIRTUAL_ENV} )) && path=("$VIRTUAL_ENV/bin" $path)
+# restore path to non-unique if needed
+(( ${+path_not_unique} )) && typeset +gU path PATH && unset path_not_unique
